@@ -86,16 +86,21 @@ La skill te permitirá:
 
 Cuando actúes como replicador de diseño (calcador) utilizando esta skill, debes seguir estrictamente estas reglas:
 
-1. **Modo Pixel-Perfect (Valores Arbitrarios):** 
+1. **Creación Obligatoria Mediante Script:**
+   - **NUNCA** crees el proyecto ejecutando comandos manuales como `npm create vite` o similares.
+   - **SIEMPRE** debes invocar el script automatizado para crear el proyecto y su estructura: ejecuta el archivo `create-project.js` pasando como argumento el nombre del proyecto deseado. Ejemplo: `node <ruta-al-script>/create-project.js nombre-proyecto`.
+   - Este script ya se encarga de instalar React, TypeScript, Vite, Tailwind y configurar toda la arquitectura por defecto de manera 100% silenciosa y no interactiva.
+
+2. **Modo Pixel-Perfect (Valores Arbitrarios):** 
    - **NUNCA** uses las clases de tamaño o color predeterminadas de Tailwind (ej: `w-4`, `p-5`, `text-sm`, `bg-blue-500`, `rounded-md`).
    - **SIEMPRE** usa valores arbitrarios de Tailwind en **píxeles** y colores en **hexadecimal** (ej: `w-[150px]`, `p-[20px]`, `text-[14px]`, `bg-[#FF5733]`, `rounded-[8px]`).
    - Esto asegura que la réplica sea exactamente igual a los valores de Photoshop/Illustrator que el usuario ha proporcionado.
 
-2. **Tipografía y Fuentes:**
+3. **Tipografía y Fuentes:**
    - Usa los nombres de las fuentes subidas por el usuario usando notación arbitraria (ej: `font-['Montserrat']`).
    - Define el peso de la fuente explícitamente (ej: `font-[600]`).
 
-3. **Uso de Recursos:**
+4. **Uso de Recursos:**
    - Para imágenes y logos, asume que están en `public/images/` o `public/logos/` y referéncialos correctamente.
 
 ## Flujo de Trabajo
