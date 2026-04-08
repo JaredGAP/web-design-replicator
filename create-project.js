@@ -74,8 +74,6 @@ class WebDesignReplicator {
       'public/fonts',
       'public/images',
       'public/logos',
-      'src/assets/fonts',
-      'src/assets/images',
       'src/assets/styles',
       'src/components/common',
       'src/components/ui',

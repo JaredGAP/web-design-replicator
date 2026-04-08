@@ -27,8 +27,6 @@ proyecto/
 │   └── logos/          # Logos corporativos
 ├── src/
 │   ├── assets/
-│   │   ├── fonts/      # Fuentes locales
-│   │   ├── images/     # Imágenes del proyecto
 │   │   └── styles/     # Estilos globales y variables
 │   ├── components/     # Componentes React reutilizables
 │   │   ├── common/     # Componentes comunes (Header, Footer, etc)
