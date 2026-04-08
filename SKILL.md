@@ -98,6 +98,19 @@ Cuando actúes como replicador de diseño (calcador) utilizando esta skill, debe
 3. **Uso de Recursos:**
    - Para imágenes y logos, asume que están en `public/images/` o `public/logos/` y referéncialos correctamente.
 
+## Prompts Recomendados para el Usuario
+
+Copia y pega estos prompts en el chat para obtener los mejores resultados con esta skill:
+
+### 1. Iniciar el proyecto vacío
+> "Activa la skill web-design-replicator. Quiero que ejecutes el generador para crear un nuevo proyecto llamado `MiProyectoWeb`. Configura toda la estructura de carpetas vacía para que yo pueda subir mis recursos."
+
+### 2. Replicar el diseño de una página (Mockup)
+> "Ya he subido los recursos (imágenes, logos y tipografías). Ahora quiero que repliques exactamente el diseño de la imagen `design-resources/mockups/home-page.png`. Crea el componente principal y divídelo en subcomponentes si es necesario. Recuerda usar SIEMPRE valores arbitrarios de Tailwind en píxeles (px) y colores hexadecimales."
+
+### 3. Revisión de calidad (Auditoría Pixel-Perfect)
+> "Revisa todo el código que has generado hasta ahora. Haz una auditoría estricta para asegurarte de que NO se está usando ninguna clase predeterminada de Tailwind relacionada con tamaños o colores (como w-10, p-4, text-lg, bg-blue-600). Si encuentras alguna, cámbiala inmediatamente a su valor exacto en píxeles (px) o hexadecimal."
+
 ## Flujo de Trabajo
 
 1. **Inicialización**: Crea el proyecto base
