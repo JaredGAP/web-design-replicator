@@ -52,9 +52,19 @@ class WebDesignReplicator {
 
   createReactProject() {
     console.log('⚡ Creando proyecto React con Vite...');
+    
+    // Forzamos el idioma a inglés configurando variables de entorno temporales
+    const env = { 
+      ...process.env, 
+      LANG: 'en_US.UTF-8', 
+      LC_ALL: 'en_US.UTF-8',
+      LANGUAGE: 'en_US.UTF-8'
+    };
+
     execSync(`npx -y create-vite@latest ${this.projectName} --template react-ts --no-interactive`, {
       stdio: 'inherit',
-      cwd: process.cwd()
+      cwd: process.cwd(),
+      env
     });
   }
 
