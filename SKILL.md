@@ -38,8 +38,10 @@ proyecto/
 │   └── config/         # Configuraciones (colores, tipografía, etc)
 ├── design-resources/   # Recursos del diseño
 │   ├── colors/         # Paletas de colores
+│   │   └── colors.md   # Definición de colores base en hex
 │   ├── mockups/        # Mockups y referencias
 │   └── specifications/ # Especificaciones del diseño
+│       └── specifications.md # Documento con reglas y medidas
 └── docs/               # Documentación del proyecto
 ```
 

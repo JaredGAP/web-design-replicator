@@ -201,6 +201,46 @@ export const breakpoints = {
 
     fs.writeFileSync(path.join(this.projectPath, 'src/config/colors.ts'), colorsConfig);
     fs.writeFileSync(path.join(this.projectPath, 'src/utils/design.ts'), designUtils);
+
+    // Crear archivos MD para diseño en design-resources/
+    const colorsMdContent = `# Paleta de Colores
+
+Define aquí los colores extraídos del diseño original (Photoshop/Illustrator/Figma).
+
+## Colores Principales
+- **Primario**: \`#000000\`
+- **Secundario**: \`#ffffff\`
+- **Acento**: \`#ff0000\`
+
+## Colores de Fondo y Texto
+- **Fondo Principal**: \`#f5f5f5\`
+- **Texto Principal**: \`#333333\`
+
+> **Nota para la IA:** Al replicar el diseño, utiliza estos valores hexadecimales exactos mediante clases arbitrarias de Tailwind (ej: \`bg-[#000000]\` o \`text-[#333333]\`).
+`;
+    fs.writeFileSync(path.join(this.projectPath, 'design-resources/colors/colors.md'), colorsMdContent);
+
+    const specificationsMdContent = `# Especificaciones de Diseño
+
+Documenta aquí cualquier regla o detalle específico del diseño que deba respetarse estrictamente.
+
+## Tipografía
+- **Fuente Principal**: [Nombre de la fuente]
+- **Fuente Secundaria**: [Nombre de la fuente]
+- **Pesos (Weights)**: Regular (400), Medium (500), Bold (700)
+
+## Espaciados y Layout
+- **Ancho Máximo del Contenedor**: 1440px
+- **Márgenes Laterales (Mobile)**: 20px
+- **Márgenes Laterales (Desktop)**: 40px
+
+## Efectos Visuales
+- **Sombras (Drop Shadows)**: [Especificar si las hay]
+- **Bordes Redondeados (Border Radius)**: [Especificar px por defecto]
+
+> **Nota para la IA:** Usa siempre valores arbitrarios en píxeles para respetar estas medidas (ej: \`px-[20px]\`, \`rounded-[8px]\`).
+`;
+    fs.writeFileSync(path.join(this.projectPath, 'design-resources/specifications/specifications.md'), specificationsMdContent);
     
     // Eliminar archivo typography.ts anterior si existía para simplificar
     const typoPath = path.join(this.projectPath, 'src/config/typography.ts');
