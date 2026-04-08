@@ -21,6 +21,9 @@ class WebDesignReplicator {
       // Configurar estructura de carpetas
       this.setupFolderStructure();
       
+      // Limpiar archivos y carpetas por defecto de Vite
+      this.cleanupDefaultFiles();
+      
       // Configurar archivos base
       this.setupConfigurationFiles();
       
@@ -49,7 +52,7 @@ class WebDesignReplicator {
 
   createReactProject() {
     console.log('⚡ Creando proyecto React con Vite...');
-    execSync(`npm create vite@latest ${this.projectName} -- --template react-ts`, {
+    execSync(`npx -y create-vite@latest ${this.projectName} --template react-ts --no-interactive`, {
       stdio: 'inherit',
       cwd: process.cwd()
     });
@@ -57,7 +60,7 @@ class WebDesignReplicator {
 
   setupFolderStructure() {
     console.log('📂 Configurando estructura de carpetas...');
-    const folders = [
+    this.allowedFolders = [
       'public/fonts',
       'public/images',
       'public/logos',
@@ -77,10 +80,88 @@ class WebDesignReplicator {
       'docs'
     ];
 
-    folders.forEach(folder => {
+    this.allowedFolders.forEach(folder => {
       const fullPath = path.join(this.projectPath, folder);
       fs.mkdirSync(fullPath, { recursive: true });
     });
+  }
+
+  cleanupDefaultFiles() {
+    console.log('🧹 Limpiando archivos y carpetas por defecto de Vite...');
+    
+    // Archivos específicos que Vite crea y no queremos
+    const filesToDelete = [
+      'src/assets/react.svg',
+      'public/vite.svg',
+      'src/App.css'
+    ];
+
+    filesToDelete.forEach(file => {
+      const fullPath = path.join(this.projectPath, file);
+      if (fs.existsSync(fullPath)) {
+        fs.unlinkSync(fullPath);
+      }
+    });
+
+    // Revisar y eliminar carpetas no definidas en src/ y public/
+    const checkAndCleanDir = (baseDir, currentPath = '') => {
+      const fullDirPath = path.join(this.projectPath, baseDir, currentPath);
+      if (!fs.existsSync(fullDirPath)) return;
+
+      const items = fs.readdirSync(fullDirPath, { withFileTypes: true });
+      
+      items.forEach(item => {
+        if (item.isDirectory()) {
+          const relativePath = path.join(baseDir, currentPath, item.name).replace(/\\/g, '/');
+          
+          // Verificar si esta carpeta o alguna subcarpeta está en allowedFolders
+          const isAllowed = this.allowedFolders.some(allowed => 
+            allowed === relativePath || allowed.startsWith(relativePath + '/') || relativePath.startsWith(allowed + '/')
+          );
+
+          if (!isAllowed) {
+            console.log(`   🗑️ Eliminando carpeta no deseada: ${relativePath}`);
+            fs.rmSync(path.join(this.projectPath, relativePath), { recursive: true, force: true });
+          } else {
+            // Revisar recursivamente
+            checkAndCleanDir(baseDir, path.join(currentPath, item.name));
+          }
+        }
+      });
+    };
+
+    checkAndCleanDir('src');
+    checkAndCleanDir('public');
+
+    // Sobrescribir index.css para incluir Tailwind
+    const indexCssPath = path.join(this.projectPath, 'src/index.css');
+    const tailwindDirectives = `@tailwind base;\n@tailwind components;\n@tailwind utilities;\n`;
+    fs.writeFileSync(indexCssPath, tailwindDirectives);
+
+    // Sobrescribir App.tsx con un boilerplate limpio
+    const appTsxPath = path.join(this.projectPath, 'src/App.tsx');
+    const appTsxContent = `import React from 'react';
+import { Layout } from './components/common/Layout';
+import { Container } from './components/common/Container';
+import { Button } from './components/ui/Button';
+
+function App() {
+  return (
+    <Layout>
+      <Container className="py-[40px]">
+        <h1 className="text-[32px] font-bold mb-[20px]">Web Design Replicator</h1>
+        <p className="text-[16px] text-[#333333] mb-[20px]">
+          Proyecto configurado exitosamente para diseño pixel-perfect.
+        </p>
+        <Button>Empezar a diseñar</Button>
+      </Container>
+    </Layout>
+  );
+}
+
+export default App;
+`;
+    fs.writeFileSync(appTsxPath, appTsxContent);
   }
 
   setupConfigurationFiles() {
